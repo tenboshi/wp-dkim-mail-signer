@@ -2,7 +2,7 @@
 /**
  * Plugin Name: DKIM Mail Signer
  * Description: WordPress の送信メールに DKIM 署名を追加します（外部SMTP不要）。
- * Version: 1.1
+ * Version: 1.2
  * Author: tenboshi@gmail.com
  */
 
