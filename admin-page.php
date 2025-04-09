@@ -78,9 +78,8 @@ function handle_generate_key($private_key_path, $domain, &$public_key_output) {
     $domain_display = $domain ?: 'example.com';
 
     $public_key_output = <<<HTML
-<div class="updated"><p><strong>秘密鍵を生成しました。</strong></p>
-<p>以下の内容をDNSに追加してください：</p>
-<code>{$selector}._domainkey.{$domain_display} IN TXT "v=DKIM1; k=rsa; p={$public_key_clean}"</code>
+<div class="updated"><p>以下の内容をDNSに追加してください：</p>
+<code style="display: inline-block; white-space: pre-wrap; word-wrap: break-word; width: 100%;">{$selector}._domainkey.{$domain_display} IN TXT "v=DKIM1; k=rsa; p={$public_key_clean}"</code>
 </div>
 HTML;
 
@@ -157,6 +156,13 @@ function render_key_management_section($private_key_path) {
         echo '<form method="post">';
         wp_nonce_field('dkim_mail_signer_delete_key');
         submit_button('秘密鍵を削除する', 'delete', 'delete_key');
+        echo '</form>';
+
+        // 鍵ペアの検証
+        echo '<hr><h2>鍵ペアの検証（DNS比較あり）</h2>';
+        echo '<form method="post">';
+        wp_nonce_field('dkim_mail_signer_verify_key');
+        submit_button('鍵ペアを検証する', 'secondary', 'verify_key');
         echo '</form>';
     } else {
         echo '<form method="post">';
